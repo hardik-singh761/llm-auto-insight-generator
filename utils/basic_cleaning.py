@@ -32,6 +32,6 @@ def clean_dataset(input_csv, output_csv):
 
 if __name__ == "__main__":
     clean_dataset(
-        input_csv="data/sample_data.csv",
-        output_csv="data/cleaned_data.csv"
+        input_csv="../data/sample_data.csv",
+        output_csv="../data/cleaned_data.csv"
     )

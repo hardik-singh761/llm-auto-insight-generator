@@ -48,4 +48,4 @@ def profile_dataset(csv_path):
 
 if __name__ == "__main__":
     # Example usage
-    profile_dataset("data/sample_data.csv")
+    profile_dataset("../data/sample_data.csv")
