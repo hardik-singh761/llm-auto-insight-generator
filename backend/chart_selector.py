@@ -1,42 +1,47 @@
-"""
-This file decides which type of chart
-should be generated for each column.
-"""
+import pandas as pd
 
-def select_charts(profile_info):
-    """
-    Input:
-        profile_info (dict): Output from data_profiling.py
-
-    Output:
-        List of chart configurations
-    """
+def select_charts(df):
 
     charts = []
 
-    # Numerical columns → Histogram
-    for col in profile_info["numerical"]:
+    numeric_cols = df.select_dtypes(include=['int64','float64']).columns
+    categorical_cols = df.select_dtypes(include=['object']).columns
+
+    # Histogram + Boxplot for numeric columns
+    for col in numeric_cols:
         charts.append({
             "column": col,
             "chart_type": "histogram"
         })
 
-    # Categorical columns → Bar chart
-    for col in profile_info["categorical"]:
+        charts.append({
+            "column": col,
+            "chart_type": "box"
+        })
+
+    # Bar + Pie for categorical
+    for col in categorical_cols[:2]:   # limit to avoid too many charts
         charts.append({
             "column": col,
             "chart_type": "bar"
-        })  
+        })
+
+        charts.append({
+            "column": col,
+            "chart_type": "pie"
+        })
+
+    # Scatter for first numeric pair
+    if len(numeric_cols) >= 2:
+        charts.append({
+            "x": numeric_cols[0],
+            "y": numeric_cols[1],
+            "chart_type": "scatter"
+        })
+
+    # Correlation heatmap
+    charts.append({
+        "chart_type": "heatmap"
+    })
 
     return charts
-
-
-# Testing the function
-if __name__ == "__main__":
-    sample_profile = {
-        "numerical": ["Sales", "Profit"],
-        "categorical": ["Category", "Region"]
-    }
-
-    selected = select_charts(sample_profile)
-    print(selected)

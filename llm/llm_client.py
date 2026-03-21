@@ -1,5 +1,24 @@
+from groq import Groq
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+client = Groq(
+    api_key=os.getenv("API_KEY")
+)
+
 def call_llm(prompt):
-    """
-    Mock LLM response for academic project
-    """
-    return "The chart shows a noticeable trend and clear variation in the data."
+
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        model="llama-3.1-8b-instant"
+    )
+
+    return chat_completion.choices[0].message.content
