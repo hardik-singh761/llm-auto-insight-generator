@@ -13,5 +13,5 @@ Median: {stats.get('median')}
 Max: {stats.get('max')}
 Min: {stats.get('min')}
 
-Explain the pattern or trend in simple language in 2 sentences.
+Explain the pattern or trend in simple language in 2 sentences and also tell a little about the column feature and keep it short and simple so anyone can understand what is happening in the dataset.
 """

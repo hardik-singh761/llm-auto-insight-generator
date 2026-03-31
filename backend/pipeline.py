@@ -12,7 +12,7 @@ from llm.prompt_builder import build_prompt
 from llm.llm_client import call_llm
 
 
-def run_pipeline(input_csv):
+def run_pipeline(input_csv,selected_charts=None):
     
     clean_dataset(input_csv, "data/cleaned_data.csv")
 
@@ -20,7 +20,7 @@ def run_pipeline(input_csv):
 
     profile = profile_dataset("data/cleaned_data.csv")
 
-    charts = select_charts(df)
+    charts = select_charts(df,selected_charts)
 
     stats = generate_statistics(df)
 

@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 import os
+import json
+import pandas as pd
+
 from backend.pipeline import run_pipeline
+from visualization.chart_generator import generate_chart
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
@@ -22,13 +26,23 @@ def upload():
 
     file.save(filepath)
 
-    insights = run_pipeline(filepath)
+    charts = request.form.get("charts")
+
+    if charts:
+        charts = json.loads(charts)
+    else:
+        charts = None
+
+    insights = run_pipeline(filepath, charts)
 
     return jsonify(insights)
+
 
 @app.route('/charts/<path:filename>')
 def serve_chart(filename):
     return send_from_directory('../visualization/outputs', filename)
+
+
 
 
 if __name__ == "__main__":

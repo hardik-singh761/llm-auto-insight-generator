@@ -3,33 +3,68 @@
 
 <head>
 
-<title>AI Dataset Insight Generator</title>
+    <title>LLM Auto Insight Generator</title>
 
-<link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
 
 </head>
 
 <body>
 
-<header>
+    <div class="container">
 
-<h1>AI Dataset Insight Generator</h1>
+        <h1>📊 LLM Based Auto Insight Generator</h1>
 
-<p>Upload any dataset and get instant insights powered by AI</p>
+        <div class="upload-card">
 
-</header>
+            <h3>Upload Dataset</h3>
 
-<div class="upload-section">
+            <input type="file" id="fileInput">
 
-<input type="file" id="fileInput">
+        </div>
 
-<button onclick="uploadDataset()">Analyze Dataset</button>
 
-</div>
+        <div class="chart-options">
 
-<div id="results" class="dashboard"></div>
+            <h3>Select Chart Types</h3>
 
-<script src="/static/script.js"></script>
+            <label><input type="checkbox" value="histogram" checked> Histogram</label>
+
+            <label><input type="checkbox" value="box" checked> Box Plot</label>
+
+            <label><input type="checkbox" value="bar" checked> Bar Chart</label>
+
+            <label><input type="checkbox" value="pie"> Pie Chart</label>
+
+            <label><input type="checkbox" value="scatter" checked> Scatter Plot</label>
+
+            <label><input type="checkbox" value="heatmap" checked> Correlation Heatmap</label>
+
+        </div>
+
+
+        <button class="analyze-btn" onclick="uploadDataset()">
+
+            Analyze Dataset
+
+        </button>
+
+
+        <div id="loading">
+
+            Analyzing Dataset... 🤖
+
+        </div>
+
+
+        <div id="results">
+
+        </div>
+
+    </div>
+
+    <script src="/static/script.js"></script>
 
 </body>
+
 </html>

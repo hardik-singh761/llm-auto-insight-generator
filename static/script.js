@@ -1,16 +1,33 @@
 function uploadDataset() {
   let file = document.getElementById("fileInput").files[0];
 
+  if (!file) {
+    alert("Please upload dataset");
+    return;
+  }
+
+  let selectedCharts = [];
+
+  document.querySelectorAll(".chart-options input:checked").forEach((c) => {
+    selectedCharts.push(c.value);
+  });
+
   let formData = new FormData();
 
   formData.append("file", file);
+  formData.append("charts", JSON.stringify(selectedCharts));
+
+  document.getElementById("loading").style.display = "block";
 
   fetch("/upload", {
     method: "POST",
     body: formData,
   })
     .then((res) => res.json())
+
     .then((data) => {
+      document.getElementById("loading").style.display = "none";
+
       let div = document.getElementById("results");
 
       div.innerHTML = "";
